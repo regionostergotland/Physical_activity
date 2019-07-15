@@ -1,1 +1,1 @@
-# Physical_activity
+# Physical activity archetypes
