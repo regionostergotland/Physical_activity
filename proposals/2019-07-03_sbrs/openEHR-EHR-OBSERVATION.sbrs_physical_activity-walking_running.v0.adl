@@ -1,0 +1,632 @@
+archetype (adl_version=1.4; uid=de4f3bcd-8706-4beb-be02-d36ae5cf32a5)
+	openEHR-EHR-OBSERVATION.sbrs_physical_activity-walking_running.v0
+specialize
+	openEHR-EHR-OBSERVATION.sbrs_physical_activity.v0
+
+concept
+	[at0000.1]
+
+language
+	original_language = <[ISO_639-1::en]>
+
+description
+	original_author = <
+		["date"] = <"2017-01-02">
+		["name"] = <"Priscila Maranhão; Gustavo Bacelar">
+		["organisation"] = <"MEDCIDS-FMUP; VIRTUAL CARE">
+		["email"] = <"priscilamaranhao@gmail.com; gbacelar@gmail.com">
+	>
+	lifecycle_state = <"in_development">
+	other_contributors = <"Ricardo Correia, Portugal","Pedro Marques, Portugal","Duarte Ferreira, Portugal","Heather Leslie, Ocean Informatics, Australia","Noah Hellman, Region Östergötland">
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+			purpose = <"To record actual physical activity level of an individual at a specified point in time or over a specified period of time.">
+			keywords = <"exercise","activity","physical","fitness">
+			copyright = <"© openEHR Foundation">
+			use = <"Use to record actual physical activity level of children and adults at a specified point in time or over a specified period of time. 
+
+Please note: There is some apparent overlap between the 'Physical activity category' data element in this archetype and the 'Physical activity level (PAL) status' data element in EVALUATION.physical_activity_summary archetype - they both use the same value set. Use this archetype when recording the category at a specified point in time or during a specified period of time, however if the intent is to record the typical activity as a summative statement then use the equivalent data point in the EVALUATION.physical_activity_summary.
+
+It is anticipated that this archetype will be further enhanced to record activity-specific data.
+
+An example of a self reported running session with data fetched from a running watch may then look like below if the physical_activity archetype's slots for detail and activity are filled with suitable CLUSTER archetypes an the physical_activity archetype itself is contained in a self_monitoring COMPOSITION.
+
+    self_monitoring:
+        physical_activity:
+            data: [
+                interval_event:
+                    time: 2019-04-16T09:27
+                    math_function: average
+                    width: PT40M3S
+                    data:
+                        detail: [
+                            energy_expenditure:
+                                active_expenditure: 732 kcal
+                        ]
+                        activity:
+                            running:
+                                distance: 10.05 km
+                                cadence: 181 /min
+                                step_length: 1.39 m
+            ]
+            protocol:
+                device:
+                    medical_device:
+                        device_name: Garmin Fenix 3
+
+If more detail is needed the event could be split up in multiple short interval or point events, as running watches usually store time series of measurements.
+
+An example of steps recorded during two days with a fitness watch may look like below.
+
+    self_monitoring:
+        physical_activity:
+            data: [
+                interval_event:
+                    time: 2019-04-16
+                    math_function: total
+                    width: P1D
+                    data:
+                        detail: [
+                            step:
+                                step_count: 7983
+                        ]
+                interval_event:
+                    time: 2019-04-17
+                    math_function: total
+                    width: P1D
+                    data:
+                        detail: [
+                            step:
+                                step_count: 11319
+                        ]
+                ]
+            protocol:
+                device:
+                    medical_device:
+                        device_name: FitBit charge 3
+">
+			misuse = <"Not to be used to record typical activity or summative data about physical activity. Use the EVALUATION.physical_activity_summary for this purpose.">
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["references"] = <"Ferreira, M; Matsudo, S; Matsudo, V; Braggion, G. Efeitos de um programa de orientação de atividade física  e nutricional sobre o nivel de atividade fisica de mulheres fisicamente ativas de 50-72 anos de idade. Rev Bras Med Esporte, v.11, n.3, 2005.
+
+Silva, GSF; Bergamashine, R; Rosa, M. et al. Avaliação do nível de atividade física de estudantes de graduação das  áreas saúde/biológica. Rev Bras Med Esporte; v.13, n.1 2007. 
+
+Pitta, F; Troosters, T; Probst, VS; et al. Quantifying  physical activity in daily life with questionnaires and motion sensors in COPD. Eur Respir J, 27; p.1140-55, 2006.">
+		["current_contact"] = <"Heather Leslie, Ocean Health Systems<heather.leslie@oceanhealthsystems.com>">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"40bce09b528f65f90ab2f5452d867bf5">
+		["build_uid"] = <"eed4f9db-ff38-4cd0-a3cd-06dd9f3c893b">
+		["revision"] = <"0.0.1-alpha">
+	>
+
+definition
+	OBSERVATION[at0000.1] matches {    -- A DEPRECATED experimental version of Walking/Running
+		data matches {
+			HISTORY[at0001] matches {    -- Event Series
+				events cardinality matches {1..*; unordered} matches {
+					INTERVAL_EVENT[at0002.1] occurrences matches {0..*} matches {    -- Workout
+						data matches {
+							ITEM_TREE[at0003] matches {    -- Tree
+								items cardinality matches {0..*; unordered} matches {
+									ELEMENT[at0073.1] occurrences matches {0..1} matches {    -- Activity name
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0078,    -- Running
+													at0081]    -- Walking
+												}
+											}
+										}
+									}
+									allow_archetype CLUSTER[at0057] occurrences matches {0..1} matches {    -- Level of Exertion
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.level_of_exertion\.v1/}
+									}
+									ELEMENT[at0004] occurrences matches {0..1} matches {    -- Physical activity level (PAL)
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::380]>
+												list = <
+													["1"] = <
+														units = <"1">
+														magnitude = <|>=0.0|>
+														precision = <|2|>
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0103] occurrences matches {0..1} matches {    -- Active energy expenditure
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::121]>
+												list = <
+													["1"] = <
+														units = <"kcal">
+													>
+													["2"] = <
+														units = <"J">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0104] occurrences matches {0..1} matches {    -- Total energy expenditure
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::121]>
+												list = <
+													["1"] = <
+														units = <"kcal">
+													>
+													["2"] = <
+														units = <"J">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0026] occurrences matches {0..1} matches {    -- Comment
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									allow_archetype CLUSTER[at0031] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0.1] occurrences matches {0..1} matches {    -- Distance
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"km">
+													>
+													["2"] = <
+														units = <"m">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0.2] occurrences matches {0..1} matches {    -- Speed
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::338]>
+												list = <
+													["1"] = <
+														units = <"m/s">
+													>
+													["2"] = <
+														units = <"km/h">
+													>
+												>
+											>
+										}
+									}
+									ELEMENT[at0.4] occurrences matches {0..1} matches {    -- Step cadence
+										value matches {
+											C_DV_QUANTITY <
+																							>
+										}
+									}
+									ELEMENT[at0.15] occurrences matches {0..1} matches {    -- Step count
+										value matches {
+											DV_COUNT matches {*}
+										}
+									}
+									ELEMENT[at0.5] occurrences matches {0..1} matches {    -- Stride length
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"m">
+													>
+												>
+											>
+										}
+									}
+									allow_archetype CLUSTER[at0.9] occurrences matches {0..*} matches {    -- Cumulative elevation change
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.cumulative_elevation_change(-[a-zA-Z0-9_]+)*\.v0/}
+									}
+									ELEMENT[at0.10] occurrences matches {0..1} matches {    -- Altitude
+										value matches {
+											C_DV_QUANTITY <
+												property = <[openehr::122]>
+												list = <
+													["1"] = <
+														units = <"m">
+													>
+												>
+											>
+										}
+									}
+								}
+							}
+						}
+						state matches {
+							ITEM_TREE[at0027] matches {    -- ItemTree
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0114] occurrences matches {0..*} matches {    -- Environment
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.environmental_conditions(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									allow_archetype CLUSTER[at0108] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/.*/}
+									}
+									ELEMENT[at0.6] occurrences matches {0..1} matches {    -- Footwear type
+										value matches {
+											DV_CODED_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0.12] occurrences matches {0..1} matches {    -- Footwear model
+										value matches {
+											DV_TEXT matches {*}
+										}
+									}
+									ELEMENT[at0.16] occurrences matches {0..1} matches {    -- Terrain
+										value matches {
+											DV_CODED_TEXT matches {
+												defining_code matches {
+													[local::
+													at0.19,    -- Treadmill
+													at0.20,    -- Running track
+													at0.21,    -- Road
+													at0.22]    -- Rough terrain
+												}
+											}
+											DV_TEXT matches {*}
+										}
+									}
+								}
+							}
+						}
+					}
+					INTERVAL_EVENT[at0094] occurrences matches {0..*} matches {    -- Split
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]
+						}
+						state matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/state[at0027]
+						}
+					}
+					POINT_EVENT[at0093] occurrences matches {0..*} matches {    -- Point
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]
+						}
+						state matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/state[at0027]
+						}
+					}
+					INTERVAL_EVENT[at0115] occurrences matches {0..1} matches {    -- Aggregated
+						data matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]
+						}
+						state matches {
+							use_node ITEM_TREE /data[at0001]/events[at0002]/state[at0027]
+						}
+					}
+				}
+				summary matches {
+					ITEM_TREE[at0105] matches {    -- ITEM_TREE
+						items cardinality matches {0..*; unordered} matches {
+							ELEMENT[at0116] occurrences matches {0..1} matches {    -- Description
+								value matches {
+									DV_TEXT matches {*}
+								}
+							}
+							allow_archetype CLUSTER[at0030] occurrences matches {0..*} matches {    -- Multimedia
+								include
+									archetype_id/value matches {/.*/}
+							}
+						}
+					}
+				}
+			}
+		}
+		protocol matches {
+			ITEM_TREE[at0006] matches {    -- Tree
+				items cardinality matches {1..*; unordered} matches {
+					ELEMENT[at0008] matches {    -- Techniques
+						value matches {
+							DV_CODED_TEXT matches {
+								defining_code matches {
+									[local::
+									at0009,    -- Direct Observation
+									at0010,    -- Questionnaires
+									at0011]    -- Motion sensors
+								}
+							}
+						}
+					}
+					allow_archetype CLUSTER[at0021] occurrences matches {0..*} matches {    -- Extension
+						include
+							archetype_id/value matches {/.*/}
+					}
+					allow_archetype CLUSTER[at0024] occurrences matches {0..*} matches {    -- Device
+						include
+							archetype_id/value matches {/.*|openEHR-EHR-CLUSTER\.device(-[a-zA-Z0-9_]+)*\.v1/}
+					}
+				}
+			}
+		}
+		state matches {
+			HISTORY[at0106] matches {    -- History
+				events cardinality matches {0..*; unordered} matches {
+					EVENT[at0107] occurrences matches {0..1} matches {    -- Any event
+						data matches {
+							ITEM_TREE[at0111] matches {    -- ITEM_TREE
+								items cardinality matches {0..*; unordered} matches {
+									allow_archetype CLUSTER[at0112] occurrences matches {0..*} matches {    -- Environment
+										include
+											archetype_id/value matches {/openEHR-EHR-CLUSTER\.environmental_conditions(-[a-zA-Z0-9_]+)*\.v1/}
+									}
+									allow_archetype CLUSTER[at0113] occurrences matches {0..*} matches {    -- Additional details
+										include
+											archetype_id/value matches {/.*/}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0095"] = <
+					text = <"Energy expenditure">
+					description = <"*">
+				>
+				["at0000.1"] = <
+					text = <"A DEPRECATED experimental version of Walking/Running">
+					description = <"Measurement of the actual physical activity of an individual.">
+				>
+				["at0073.1"] = <
+					text = <"Activity name">
+					description = <"*">
+				>
+				["at0.1"] = <
+					text = <"Distance">
+					description = <"Distance travelled by foot.">
+					comment = <"May only be used in interval events; for example split or workout.">
+				>
+				["at0.2"] = <
+					text = <"Speed">
+					description = <"Speed of walking or running.">
+				>
+				["at0.4"] = <
+					text = <"Step cadence">
+					description = <"*">
+				>
+				["at0.5"] = <
+					text = <"Stride length">
+					description = <"*">
+				>
+				["at0.6"] = <
+					text = <"Footwear type">
+					description = <"*">
+				>
+				["at0.9"] = <
+					text = <"Cumulative elevation change">
+					description = <"*">
+				>
+				["at0.10"] = <
+					text = <"Altitude">
+					description = <"*">
+				>
+				["at0.12"] = <
+					text = <"Footwear model">
+					description = <"*">
+				>
+				["at0.15"] = <
+					text = <"Step count">
+					description = <"*">
+					comment = <"May only be used in interval events; for example split or workout.">
+				>
+				["at0002.1"] = <
+					text = <"Workout">
+					description = <"Summarize a workout.">
+				>
+				["at0.16"] = <
+					text = <"Terrain">
+					description = <"*">
+				>
+				["at0.19"] = <
+					text = <"Treadmill">
+					description = <"Stationary treadmill.">
+				>
+				["at0.20"] = <
+					text = <"Running track">
+					description = <"Running track such as a 400m oval track.">
+				>
+				["at0.21"] = <
+					text = <"Road">
+					description = <"City roads.">
+				>
+				["at0.22"] = <
+					text = <"Rough terrain">
+					description = <"Grass, mud, woodlands, hill, flat ground and water.">
+				>
+				["at0000"] = <
+					text = <"A DEPRECATED experimental version of Physical activity">
+					description = <"Measurement of the actual physical activity of an individual.">
+				>
+				["at0001"] = <
+					text = <"Event Series">
+					description = <"@ internal @">
+				>
+				["at0002"] = <
+					text = <"Workout">
+					description = <"Summarize a workout.">
+				>
+				["at0003"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0004"] = <
+					text = <"Physical activity level (PAL)">
+					description = <"Calculated physical activity level (PAL) of an individual.">
+				>
+				["at0006"] = <
+					text = <"Tree">
+					description = <"@ internal @">
+				>
+				["at0008"] = <
+					text = <"Techniques">
+					description = <"Details of the techiniques used to record or assess the activity.">
+				>
+				["at0009"] = <
+					text = <"Direct Observation">
+					description = <"Is carried out by observers who watch or videotape activies performed by the subjects and quantify them.">
+				>
+				["at0010"] = <
+					text = <"Questionnaires">
+					description = <"Quantifying physical activity in daily life through questionnaire and diaries has the advantage of being inexpensive  and easy to apply. E.g.: International physical activity questionnaire; Physical activity questionnaire by Crocker et al. 1997; Behavioral risk factor surveillance system, etc.">
+				>
+				["at0011"] = <
+					text = <"Motion sensors">
+					description = <"Electronic or mechanical methods (Motion sensors are instruments used to detect body movement which can be used to objectively quantify physical activity in daily life over a period.">
+				>
+				["at0021"] = <
+					text = <"Extension">
+					description = <"Additional information required to capture local content or to align with other reference models/formalisms.">
+					comment = <"For example: local information requirements or additional metadata to align with FHIR or CIMI equivalents.">
+				>
+				["at0024"] = <
+					text = <"Device">
+					description = <"*">
+				>
+				["at0026"] = <
+					text = <"Comment">
+					description = <"*">
+				>
+				["at0027"] = <
+					text = <"ItemTree">
+					description = <"@ internal @">
+				>
+				["at0030"] = <
+					text = <"Multimedia">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Additional details">
+					description = <"*">
+				>
+				["at0057"] = <
+					text = <"Level of Exertion">
+					description = <"*">
+				>
+				["at0073"] = <
+					text = <"Activity name">
+					description = <"*">
+				>
+				["at0078"] = <
+					text = <"Running">
+					description = <"*">
+				>
+				["at0079"] = <
+					text = <"Swimming">
+					description = <"*">
+				>
+				["at0080"] = <
+					text = <"Cycling">
+					description = <"*">
+				>
+				["at0081"] = <
+					text = <"Walking">
+					description = <"*">
+				>
+				["at0082"] = <
+					text = <"Aerobics">
+					description = <"*">
+				>
+				["at0086"] = <
+					text = <"Strength training">
+					description = <"*">
+				>
+				["at0087"] = <
+					text = <"Flexibility training">
+					description = <"*">
+				>
+				["at0088"] = <
+					text = <"Balance training">
+					description = <"*">
+				>
+				["at0093"] = <
+					text = <"Point">
+					description = <"Sampled point of data within a workout.">
+				>
+				["at0094"] = <
+					text = <"Split">
+					description = <"Summarize a lap, split or interval within a workout.">
+				>
+				["at0103"] = <
+					text = <"Active energy expenditure">
+					description = <"*">
+					comment = <"May only be used in interval events; for example split or workout.">
+				>
+				["at0104"] = <
+					text = <"Total energy expenditure">
+					description = <"*">
+					comment = <"May only be used in interval events; for example split or workout.">
+				>
+				["at0105"] = <
+					text = <"ITEM_TREE">
+					description = <"*">
+				>
+				["at0106"] = <
+					text = <"History">
+					description = <"@ internal @">
+				>
+				["at0107"] = <
+					text = <"Any event">
+					description = <"*">
+				>
+				["at0108"] = <
+					text = <"Additional details">
+					description = <"*">
+				>
+				["at0111"] = <
+					text = <"ITEM_TREE">
+					description = <"*">
+				>
+				["at0112"] = <
+					text = <"Environment">
+					description = <"*">
+				>
+				["at0113"] = <
+					text = <"Additional details">
+					description = <"*">
+				>
+				["at0114"] = <
+					text = <"Environment">
+					description = <"*">
+				>
+				["at0115"] = <
+					text = <"Aggregated">
+					description = <"Summarize multiple workouts during a longer period, e.g. a week.">
+				>
+				["at0116"] = <
+					text = <"Description">
+					description = <"Summarizing description of all events.">
+				>
+			>
+		>
+	>

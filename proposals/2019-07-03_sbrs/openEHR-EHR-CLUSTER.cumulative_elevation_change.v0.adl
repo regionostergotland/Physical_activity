@@ -1,0 +1,80 @@
+archetype (adl_version=1.4; uid=467cc16e-b4c6-4a07-835b-3fd038a527a8)
+	openEHR-EHR-CLUSTER.cumulative_elevation_change.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+
+description
+	original_author = <
+		["date"] = <"2019-07-02">
+	>
+	lifecycle_state = <"unmanaged">
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"dfeb7f1e11416e0687f35be87017e8d1">
+		["build_uid"] = <"10574ce0-7d41-39aa-999e-16fd73d181f5">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Cumulatve elevation change
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Elevation gain
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::122]>
+						list = <
+							["1"] = <
+								units = <"m">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Elevation drop
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::122]>
+						list = <
+							["1"] = <
+								units = <"m">
+							>
+						>
+					>
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Cumulatve elevation change">
+					description = <"Elevation">
+				>
+				["at0001"] = <
+					text = <"Elevation gain">
+					description = <"*">
+					comment = <"Often measured as stairs or floors climbed in a daily activity context.">
+				>
+				["at0002"] = <
+					text = <"Elevation drop">
+					description = <"*">
+					comment = <"*">
+				>
+			>
+		>
+	>
