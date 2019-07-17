@@ -1,0 +1,76 @@
+archetype (adl_version=1.4; uid=d216737f-844a-4b92-938b-00a36ac3f199)
+	openEHR-EHR-CLUSTER.vendor_apple_health.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::sv]>
+
+description
+	original_author = <
+		["date"] = <"2019-07-12">
+		["name"] = <"Noah Hellman, Erik Sundvall">
+		["organisation"] = <"Region ÖsterGötland">
+	>
+	lifecycle_state = <"unmanaged">
+	other_contributors = <"Noah Hellman, Erik Sundvall, Region ÖsterGötland", ...>
+	details = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["build_uid"] = <"12c23f29-7629-38cb-8cf1-fd7468d5b59f">
+		["MD5-CAM-1.0.1"] = <"1e0d90f448a19475ef71fa68ccce89ff">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Apple Health specific
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Stand time
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Stand hours
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Exercise time
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Apple Health specific">
+					description = <"Apple specific">
+				>
+				["at0001"] = <
+					text = <"Stand time">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Stand hours">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Exercise time">
+					description = <"*">
+				>
+			>
+		>
+	>

@@ -1,0 +1,68 @@
+archetype (adl_version=1.4; uid=159e6de4-e536-40b4-acb6-7decb780c71a)
+	openEHR-EHR-CLUSTER.vendor_google_fit.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::sv]>
+
+description
+	original_author = <
+		["date"] = <"2019-07-12">
+		["name"] = <"Noah Hellman, Erik Sundvall">
+		["organisation"] = <"Region Östergötland">
+		["email"] = <"erik.sundvall@regionostergotland.se">
+	>
+	lifecycle_state = <"unmanaged">
+	other_contributors = <"Noah Hellman, Erik Sundvall, Region ÖsterGötland", ...>
+	details = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"a9cf5c49f8da142f44e0e5aa605c20d9">
+		["build_uid"] = <"e029d3d2-b449-353c-b823-9edca4898ef5">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Google Fit specific
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Heart points
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0003] occurrences matches {0..1} matches {    -- Move minutes
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Google Fit specific">
+					description = <"Google Fit specifics">
+				>
+				["at0002"] = <
+					text = <"Heart points">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"Move minutes">
+					description = <"*">
+				>
+			>
+		>
+	>

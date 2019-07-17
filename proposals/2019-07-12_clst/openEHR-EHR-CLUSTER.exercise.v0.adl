@@ -1,0 +1,243 @@
+archetype (adl_version=1.4; uid=2480f23d-f3ea-457d-9dc0-063c76e2b18e)
+	openEHR-EHR-CLUSTER.exercise.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::en]>
+
+description
+	original_author = <
+		["date"] = <"2019-07-02">
+		["name"] = <"Noah Hellman, Erik Sundvall">
+		["organisation"] = <"Region Östergötland">
+	>
+	lifecycle_state = <"unmanaged">
+	other_contributors = <"Noah Hellman, Erik Sundvall, Region Östergötland", ...>
+	details = <
+		["en"] = <
+			language = <[ISO_639-1::en]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"b1c515afbdcbd91326be09f1d763e7dd">
+		["build_uid"] = <"0c7c8082-f8ce-3a16-b48f-d61ee52e9e6a">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Exercise
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Exercise name
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0003,    -- Pull up
+							at0004,    -- Push up
+							at0005,    -- Sit up
+							at0006,    -- Bench press
+							at0007,    -- Deadlift
+							at0008,    -- Bicep curl
+							at0009,    -- L-sit
+							at0010,    -- Planche
+							at0011,    -- Handstand
+							at0012,    -- Pancake
+							at0028]    -- etc...
+						}
+					}
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Description
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+			ELEMENT[at0025] occurrences matches {0..1} matches {    -- Duration of repetition
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+			ELEMENT[at0022] occurrences matches {0..1} matches {    -- Resistance
+				value matches {
+					C_DV_QUANTITY <
+						property = <[openehr::124]>
+						list = <
+							["1"] = <
+								units = <"kg">
+							>
+							["2"] = <
+								units = <"N">
+							>
+						>
+					>
+				}
+			}
+			ELEMENT[at0027] occurrences matches {0..1} matches {    -- Resistance type
+				value matches {
+					DV_CODED_TEXT matches {
+						defining_code matches {
+							[local::
+							at0029,    -- Barbell
+							at0030,    -- Weight machine
+							at0031,    -- Kettlebell
+							at0032,    -- Barbell
+							at0033,    -- Dumbell
+							at0034]    -- etc...
+						}
+					}
+				}
+			}
+			ELEMENT[at0024] occurrences matches {0..1} matches {    -- Number of repetitions
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0023] occurrences matches {0..1} matches {    -- Number of sets
+				value matches {
+					DV_COUNT matches {*}
+				}
+			}
+			ELEMENT[at0037] occurrences matches {0..1} matches {    -- Rest after set
+				value matches {
+					DV_DURATION matches {*}
+				}
+			}
+			allow_archetype CLUSTER[at0038] occurrences matches {0..*} matches {    -- Equipment
+				include
+					archetype_id/value matches {/.*/}
+			}
+			allow_archetype CLUSTER[at0035] occurrences matches {0..*} matches {    -- Additional details
+				include
+					archetype_id/value matches {/.*/}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["en"] = <
+			items = <
+				["at0000"] = <
+					text = <"Exercise">
+					description = <"Exercise">
+					comment = <"Can be used for both observations and instructions.">
+				>
+				["at0001"] = <
+					text = <"Description">
+					description = <"Detailed description of exercise.">
+				>
+				["at0002"] = <
+					text = <"Exercise name">
+					description = <"Name of exercise.">
+				>
+				["at0003"] = <
+					text = <"Pull up">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Push up">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Sit up">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Bench press">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Deadlift">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Bicep curl">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"L-sit">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Planche">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Handstand">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Pancake">
+					description = <"*">
+				>
+				["at0022"] = <
+					text = <"Resistance">
+					description = <"Resistance used for each repetition.">
+				>
+				["at0023"] = <
+					text = <"Number of sets">
+					description = <"Total number of sets.">
+				>
+				["at0024"] = <
+					text = <"Number of repetitions">
+					description = <"Number of repetitions of each set.">
+				>
+				["at0025"] = <
+					text = <"Duration of repetition">
+					description = <"Duration of each repetition.">
+					comment = <"Mostly for static exercises such as stretching or balancing.">
+				>
+				["at0027"] = <
+					text = <"Resistance type">
+					description = <"Type of resistance.">
+				>
+				["at0028"] = <
+					text = <"etc...">
+					description = <"*">
+				>
+				["at0029"] = <
+					text = <"Barbell">
+					description = <"*">
+				>
+				["at0030"] = <
+					text = <"Weight machine">
+					description = <"*">
+				>
+				["at0031"] = <
+					text = <"Kettlebell">
+					description = <"*">
+				>
+				["at0032"] = <
+					text = <"Barbell">
+					description = <"*">
+				>
+				["at0033"] = <
+					text = <"Dumbell">
+					description = <"*">
+				>
+				["at0034"] = <
+					text = <"etc...">
+					description = <"*">
+				>
+				["at0035"] = <
+					text = <"Additional details">
+					description = <"*">
+				>
+				["at0037"] = <
+					text = <"Rest after set">
+					description = <"Duration of rest after each set.">
+				>
+				["at0038"] = <
+					text = <"Equipment">
+					description = <"Equipment used (or to use) in exercise.">
+				>
+			>
+		>
+	>

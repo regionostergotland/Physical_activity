@@ -1,0 +1,142 @@
+archetype (adl_version=1.4; uid=ff71bfa0-bef2-4ace-9aa6-ad0a49236dd9)
+	openEHR-EHR-CLUSTER.borg_scale.v0
+
+concept
+	[at0000]
+
+language
+	original_language = <[ISO_639-1::sv]>
+
+description
+	original_author = <
+		["date"] = <"2019-07-12">
+		["name"] = <"Noah Hellman, Erik Sundvall">
+		["organisation"] = <"Region Östergötland, Sweden">
+		["email"] = <"erik.sundvall@regionostergotland.se">
+	>
+	lifecycle_state = <"unmanaged">
+	other_contributors = <"Noah Hellman, Region Östergötland, Sweden","Erik Sundvall, Region Östergötland, Sweden">
+	details = <
+		["sv"] = <
+			language = <[ISO_639-1::sv]>
+		>
+	>
+	other_details = <
+		["licence"] = <"This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 License. To view a copy of this license, visit http://creativecommons.org/licenses/by-sa/3.0/.">
+		["custodian_organisation"] = <"openEHR Foundation">
+		["original_namespace"] = <"org.openehr">
+		["original_publisher"] = <"openEHR Foundation">
+		["custodian_namespace"] = <"org.openehr">
+		["MD5-CAM-1.0.1"] = <"a2ad931de7e023b7f89e901663c36677">
+		["build_uid"] = <"3600ce81-1bdf-3ef2-828f-fa1beb5f7933">
+	>
+
+definition
+	CLUSTER[at0000] matches {    -- Borg scale
+		items cardinality matches {1..*; unordered} matches {
+			ELEMENT[at0001] occurrences matches {0..1} matches {    -- Borg scale
+				value matches {
+					6|[local::at0003],
+					7|[local::at0004],
+					8|[local::at0005],
+					9|[local::at0006],
+					10|[local::at0007],
+					11|[local::at0008],
+					12|[local::at0009],
+					13|[local::at0010],
+					14|[local::at0011],
+					15|[local::at0012],
+					16|[local::at0013],
+					17|[local::at0014],
+					18|[local::at0015],
+					19|[local::at0016],
+					20|[local::at0017]
+				}
+			}
+			ELEMENT[at0002] occurrences matches {0..1} matches {    -- Comment
+				value matches {
+					DV_TEXT matches {*}
+				}
+			}
+		}
+	}
+
+ontology
+	term_definitions = <
+		["sv"] = <
+			items = <
+				["at0000"] = <
+					text = <"Borg scale">
+					description = <"Borg scale">
+				>
+				["at0001"] = <
+					text = <"Borg scale">
+					description = <"*">
+				>
+				["at0002"] = <
+					text = <"Comment">
+					description = <"*">
+				>
+				["at0003"] = <
+					text = <"No exertion at all">
+					description = <"*">
+				>
+				["at0004"] = <
+					text = <"Very, very light">
+					description = <"*">
+				>
+				["at0005"] = <
+					text = <"Very, very light - very light">
+					description = <"*">
+				>
+				["at0006"] = <
+					text = <"Very light">
+					description = <"*">
+				>
+				["at0007"] = <
+					text = <"Very light - fairly light">
+					description = <"*">
+				>
+				["at0008"] = <
+					text = <"Fairly light">
+					description = <"*">
+				>
+				["at0009"] = <
+					text = <"Fairly light - somewhat hard">
+					description = <"*">
+				>
+				["at0010"] = <
+					text = <"Somewhat hard">
+					description = <"*">
+				>
+				["at0011"] = <
+					text = <"Somewhat hard - hard">
+					description = <"*">
+				>
+				["at0012"] = <
+					text = <"Hard">
+					description = <"*">
+				>
+				["at0013"] = <
+					text = <"Hard - very hard">
+					description = <"*">
+				>
+				["at0014"] = <
+					text = <"Very hard">
+					description = <"*">
+				>
+				["at0015"] = <
+					text = <"Very hard - very, very hard">
+					description = <"*">
+				>
+				["at0016"] = <
+					text = <"Very hard">
+					description = <"*">
+				>
+				["at0017"] = <
+					text = <"Maximal exertion">
+					description = <"*">
+				>
+			>
+		>
+	>
