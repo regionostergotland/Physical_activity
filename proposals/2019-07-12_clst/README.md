@@ -4,10 +4,19 @@ physical activity. These attempt to capture detailed information about running,
 swimmming and cycling sessions as well as everyday activity and exercise based
 activities such as strength, balance and flexibility training.
 
+These archetypes experiment with using clusters in order to extend the modeling
+to multiple types of activities.
+
 ## Overview of archetypes
+The archetypes listed in the below sections are all the archetypes that can be
+used when modeling physical activity.
 
 ### Experimental archetypes
-The archetypes produced and available in this repository follows:
+The archetypes produced and available are listed below. These are meant to test
+new ideas and are not proposals for fully complete archetypes. They may thus
+have lacking descriptions, improper element names, missing quantity units and
+other issues that has not been addressed in order to not waste time on
+archetypes that later may be scrapped.
 
 * `openEHR-EHR-OBSERVATION.physical_activity.v0`
   
@@ -53,7 +62,8 @@ The archetypes produced and available in this repository follows:
 
 ### Exisiting archetypes
 A list of archetypes that already exists in CKM and are used by the
-experimental archetypes follows:
+experimental are listed below. Some of theser are reviewed and published while
+some are not.
 
 * [`openEHR-EHR-COMPOSITION.self_monitoring.v0`][1]
 
@@ -78,7 +88,9 @@ experimental archetypes follows:
 [4]: https://ckm.openehr.org/ckm/archetypes/1013.1.165 "Environmental conditions"
 
 ## General
-TODO
+Physical activity can recorded by creating a template for a "Self monitoring"
+composition and adding one or more "Physical activity" observations (or
+specializations) to its content.
 
 ### Events
 In order to support multiple use cases of recording data; there are four
@@ -108,23 +120,28 @@ all elements can be placed under an event and then referenced to all events
 where they are appropriate.
 
 ### Elements
-The main archetype currently has the following elements:
+The main observation archetype currently has the elements listed in below
+sections.
 
 #### Data
+  The main archetype currently has the following data elements under each
+  event:
+
   * Activity name (coded text / free text)
     
     Specify what type of activity has taken place, e.g. running or walking. The
     current archetype has coded these internally but this will hopefully be
     coded externally with SNOMED CT or similar.
 
-  * Level of exertion (slot for `openEHR-EHR-CLUSTER.level_of_exertion.v1`)
-    
-    Specify the exertion from the individual during the activity.
-
   * Physical activity level (quantity)
 
     Specify PAL, the total energy expenditure (per 24 h) divided by the basal
     metabolic rate.
+
+  * Metabolic equivalent of task (quantity)
+    
+    Specify MET, the ratio of the expenditure rate during the activity compared
+    to the resting rate.
 
   * Active / total energy expenditure (quantity)
 
@@ -132,28 +149,204 @@ The main archetype currently has the following elements:
     expenditure. Basal expenditure is not related to activity but if only total
     is available it can be used.
 
+  * Description (free text)
+    
+    Describe the performed activity.
+
   * Comment (free text)
 
     Provide further details about the activity at runtime.
 
-  * Additional details (slot)
+  * Activity details (slot)
 
-    Allow providing further detail at template level.
+    Provide activity specific details. Currently there is a "Distance activity"
+    cluster with specializations that can be used as well as an "Exercise"
+    cluster. Vendor specific data can also be recorded with the "Google Fit
+    specific" and "Apple Health specific" clusters.
+
+  * Perceived exertion (slot)
+
+    Provide information about the perceived exertion of the individual.
+    Currently there is only a single example of a cluster, Borg scale, which
+    models the 6-20 scale proposed by Borg.
+
+#### State
+  The main archetype currently has the following state elements under each
+  event:
+
+  * Equipment (slot)
+
+    Specify any equipment that has been used during the activity. Use the
+    "Training equipment" cluster or a specialization of it.
+
+  * Environment (slot)
+
+    Specify environmental data during activity with e.g. the "Environmental
+    Conditions" cluster. Watches often measure temperature and humidity and
+    these may be helpful in interpreting the data.
+
+  * Venue/terrain (cluster)
+
+    * Description (free text)
+
+    Describe the venue or terrain where the activity has taken place.
+
+    * Additional details (slot)
+
+    Add additional details about the venue/terrain. No examples have been
+    created as of yet, but it may be of interest to model terrain and road
+    surface types.
+
+  * Additional details (slot)
+    
+    Allow adding more details about the state at template level.
+
+#### Protocol
+  The main archetype currently has the following protocol elements:
+
+  * Techniques (coded text)
+  
+    Specify how the data was obtained.
+
+  * Device (cluster)
+
+    Specify one or more devices that was used to record data. Use the "Medical
+    device" cluster or a specialization.
 
 ## Training sessions
-TODO
+The archetype can be used to capture training sessions of a wide range of
+activites.
 
 ### Distance activites
-TODO
+Distance based activities can be recorded by using the main observation
+"Physical activity" and either add the "Distance activity" cluster or a
+specialization of it to the "Activity details" slot. Specializations currently
+exist for walking/running, swimming and cycling activities.
+
+#### Distance activity cluster
+The general cluster has been divided into two separate subclusters; "Details"
+and "Cumulative details". These subclusters are meant to be used mutually
+exclusive in events, meaning that only one of the clusters should be used
+inside a single event.
+
+The reason is that the cumulative subcluster only contains data that accumulate
+over time and may not be sampled from a single point. This cluster may only
+exist under a interval event with the math function total. The details event
+contains sampled data that can either represent a point in time or a interval
+of time with a math function such as average, min or max.
+
+The distance cluster contains more than only distance. Whenever a distance is
+traveled, there is a duration of it and a speed at every point within that
+duration. The duration can be modeled with the width element of the event and
+the speed and distance can be modeled with the fields of the cluster.
+
+For many distance based sports there is also a periodic action that is used to
+propel the body forward. When running, these are steps, for cycling these are
+pedal revolutions and for swimming it is swim strokes. Whenever there is a
+periodic action, it is possible to measure its frequency at a point and its
+total amount during an interval. Because of this; the cluster contains a
+"Cadence" element for the frequency and a "Count" element for the total amount.
+
+When moving over distances, there may also be changes in altitude that alters
+the incline. The cluster thus also contains elements for sampled altitude
+points as well as cumulative gain in elevation and drop.
+
+#### Specialization clusters
+The "Distance activity" cluster has been specialized for three different
+activities; running, swimming and cycling in order to remove irrelevant
+elements, add additional fields as well as further clarify what count and
+cadence refers to for each type of activity.
+
+The swimming archetype has renamed cadence and count to "Stroke cadence" and
+"Stroke count" and disabled the elevation gain and drops because these are not
+applicable to swimming. There is also an added element to specify swimming
+style.
+
+The cycling archetype has renamed cadence and count to "Pedaling rate" and
+"Pedal revolutions" as well as added an element for power output which is often
+measured when cycling.
+
+The walking/running archetype has renamed cadence and count to "Step cadence"
+and "Step count" as well as added an element for stride length which can be an
+important metric of the running style.
 
 ### Exercise based (Strength / flexibility / balance)
-TODO
+Exercise based activities can be recorded by adding an "Exercise" cluster for
+each "session" that has been performed for a specific type of exercise.
+Examples of exercise based activities may be a strength training session, a
+yoga session or a hand balancing session. Examples of exercises may be push
+ups, headstands, handstands, shoulder stands, planches, pancakes, bench
+presses, bicep curls and many, many, many more with mulitple variations of
+each.
+
+#### Exercise cluster
+The exercise cluster, most importantly, has an element "Exercise name" that
+specifies what exercise has been performed. Since there a huge amount of
+possible exercises this should be externally coded or in any case allow for
+free text.
+
+In most cases the exercise name may be clear enough to determine what exercise
+it is, e.g. if it is a common exercise such as a push up or a bench press. If
+it however is a more obscure or not well-defined or local exercise it may also
+require a description which can be added to the free text "Description"
+element.
+
+Exercises are often performed with multiple repetitions to form a set. And
+often multiple sets are performed after each other with rest in-between. This
+can be modeled with the "Number of sets" and "Number of repetitions" elements.
+The "Rest after set" can also be used to specify how long the rest was after
+each set.
+
+Repetitions can often be performed with varying difficulties. The cluster
+allows to specify the duration, resistance and resistance type for each
+reptition if any. Duration may be relevant for e.g. static exercises such as a
+plank, a balancing exercise such as a freestanding handstand or a stretching
+exercise such as a pancake. Resistance are applicable for all exercises with
+weights, such as bench presses, dead lifts, or weighted pull ups. Types of
+resistances may be free weights, weight machines, bar bells and others.
+
+The exercise also has slot for specifying equipment that was used during the
+exercise. Examples may include gymnastic rings, training bars, weight machines
+or any other type of equipment.
 
 ### Other
-TODO
+Other activities than distance based or exercise based may be modeled if
+sufficient, simply by using the main archetype. An example may be a 2 h session
+of football with some information about exertion. Activities that require more
+specific and structured data may require that a cluster is created and added to
+the "Activity details" slot.
 
 ## Daily activity
-TODO
+Daily activity is generally an aggregation of all activity that has been
+performed during a longer period. Since the activity may be one of the types of
+activities that model training sessions, the clusters for these may very well
+be reused for tracking every day activity.
+
+Watches and mobile phones often track individuals step count, floors climbed,
+distance walked and distance cycled as well as calories expendend. These can be
+modeled by using the "Walking/Running" and "Cycling" clusters and plug them
+under activity details in an "Aggregated" event. The calories can be recorded
+by using the elements in the main archetype.
+
+The PAL and MET fields may also be used if these are available directly or if
+they can be calculated from available data.
 
 ### Vendor specific data
-TODO
+There are some types of units created by vendors such as Google and Apple that
+may be of interest if available. Because these are sometimes proprietary with
+an unknown formula, often impossible to convert to standard quantities and
+often specific to a single vendor; these has been modeled exactly as provided
+and grouped by vendor.
+
+Examples of vendor specific units are move minutes and heart points from
+Google; stand time, stand hours and exercise time from Apple as well as
+NikeFuel from Nike.
+
+Currently, clusters have been created for the two largest providers, Google and
+Apple.
+
+#### Cluster reuse
+This project has focused on observations and modeling recorded data, but
+another interesting use may be to model similar data for instructions or
+actions. Since most of the archetypes are clusters, these can simply be reused
+by adding a slots for them.
