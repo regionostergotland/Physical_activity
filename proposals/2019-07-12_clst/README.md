@@ -347,8 +347,8 @@ often specific to a single vendor; these has been modeled exactly as provided
 and grouped by vendor.
 
 Examples of vendor specific units are move minutes and heart points from
-Google[1]; stand time, stand hours and exercise time from Apple[2] as well as
-NikeFuel from Nike[3].
+[Google][1]; stand time, stand hours and exercise time from [Apple][2] as well
+as [NikeFuel][3] from Nike.
 
 Currently, clusters have been created for the two largest providers, Google and
 Apple.
