@@ -13,13 +13,13 @@ used when modeling physical activity.
 
 ### Experimental archetypes
 The archetypes produced and available are listed below. These are meant to test
-new ideas and are not proposals for fully complete archetypes. They may thus
-have lacking descriptions, improper element names, missing quantity units and
-other issues that has not been addressed in order to not waste time on
-archetypes that later may be scrapped.
+new ideas and are not proposals for fully complete archetypes. They may
+therefore have lacking descriptions, improper element names, missing quantity
+units and other issues that has not been addressed in order to not waste time
+on archetypes that later may be scrapped.
 
 * `openEHR-EHR-OBSERVATION.physical_activity.v0`
-  
+
   Main archetype to be used for all types of physical activity.
 
 * `openEHR-EHR-CLUSTER.distance_activity.v0`
@@ -45,7 +45,7 @@ archetypes that later may be scrapped.
   performed.
 
 * `openEHR-EHR-CLUSTER.training_equipment.v0`
-  
+
   Cluster for specifying a type of equipment that was used during an activity.
 
 * `openEHR-EHR-CLUSTER.vendor_apple_health.v0`
@@ -95,12 +95,12 @@ specializations) to its content.
 ### Events
 In order to support multiple use cases of recording data; there are four
 different types of events available:
-  * **Point**, to record data that is sampled from a single point in time during
-    activity.
+  * **Point**, to record data that is sampled from a single point in time
+    during activity.
   * **Split**, to record data that summarizes a part of a workout, e.g. a lap
     within a running session or any other interval within a workout.
-  * **Workout**, to record data that summarizes an entire workout, e.g. a running
-    session.
+  * **Workout**, to record data that summarizes an entire workout, e.g. a
+    running session.
   * **Aggregated**, to record data that is aggregated from multiple workouts or
     during a longer period, e.g. a day or a week.
 
@@ -128,7 +128,7 @@ sections.
   event:
 
   * **Activity name** (coded text / free text)
-    
+
     Specify what type of activity has taken place, e.g. running or walking. The
     current archetype has coded these internally but this will hopefully be
     coded externally with SNOMED CT or similar.
@@ -139,7 +139,7 @@ sections.
     metabolic rate.
 
   * **Metabolic equivalent of task** (quantity)
-    
+
     Specify MET, the ratio of the expenditure rate during the activity compared
     to the resting rate.
 
@@ -150,7 +150,7 @@ sections.
     is available it can be used.
 
   * **Description** (free text)
-    
+
     Describe the performed activity.
 
   * **Comment** (free text)
@@ -198,14 +198,14 @@ sections.
     surface types.
 
   * **Additional details** (slot)
-    
+
     Allow adding more details about the state at template level.
 
 #### Protocol
   The main archetype currently has the following protocol elements:
 
   * **Techniques** (coded text)
-  
+
     Specify how the data was obtained.
 
   * **Device** (cluster)
@@ -247,8 +247,17 @@ total amount during an interval. Because of this; the cluster contains a
 "Cadence" element for the frequency and a "Count" element for the total amount.
 
 When moving over distances, there may also be changes in altitude that alters
-the incline. The cluster thus also contains elements for sampled altitude
+the incline. The cluster therefore also contains elements for sampled altitude
 points as well as cumulative gain in elevation and drop.
+
+The details subcluster also contains another cluster; pace. Primarily when
+running, speed is almost exclusively measured in terms of minutes per km or
+minutes per mile, also known as pace. It is however not possible to use min/km
+as unit for an element as it is a duration divided by a distance. An element
+may either be a duration or a quantity, not a mix of the two. A cluster
+containing both the duration and the distance has therefore been used. A 5:30
+/km pace can then be modeled by setting the "Time per distance" element to 5:30
+and the distance element to 1 km.
 
 #### Specialization clusters
 The "Distance activity" cluster has been specialized for three different
@@ -338,11 +347,15 @@ often specific to a single vendor; these has been modeled exactly as provided
 and grouped by vendor.
 
 Examples of vendor specific units are move minutes and heart points from
-Google; stand time, stand hours and exercise time from Apple as well as
-NikeFuel from Nike.
+Google[1]; stand time, stand hours and exercise time from Apple[2] as well as
+NikeFuel from Nike[3].
 
 Currently, clusters have been created for the two largest providers, Google and
 Apple.
+
+[1]: https://support.google.com/fit/answer/7619539 "Heart points, move minutes"
+[2]: https://www.apple.com/watch/close-your-rings/ "Stand and exercise rings"
+[3]: https://news.nike.com/news/what-is-nikefuel "What is NikeFuel?"
 
 #### Cluster reuse
 This project has focused on observations and modeling recorded data, but

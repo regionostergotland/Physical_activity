@@ -1086,7 +1086,7 @@
                       "nodeId" : "at0119.4",
                       "attributes" : [ ],
                       "attributeTuples" : [ ],
-                      "archetypeRef" : "openEHR-EHR-CLUSTER.ovl-vendor_google-001.v0",
+                      "archetypeRef" : "openEHR-EHR-CLUSTER.ovl-vendor_google_fit-001.v0",
                       "referenceType" : "archetypeOverlay"
                     } ]
                   } ],

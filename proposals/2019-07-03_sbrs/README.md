@@ -11,10 +11,10 @@ used when modeling physical activity.
 
 ### Experimental archetypes
 The archetypes produced and available are listed below. These are meant to test
-new ideas and are not proposals for fully complete archetypes. They may thus
-have lacking descriptions, improper element names, missing quantity units and
-other issues that has not been addressed in order to not waste time on
-archetypes that later may be scrapped.
+new ideas and are not proposals for fully complete archetypes. They may
+therefore have lacking descriptions, improper element names, missing quantity
+units and other issues that has not been addressed in order to not waste time
+on archetypes that later may be scrapped.
 
 
 * `openEHR-EHR-OBSERVATION.physical_activity.v0`
@@ -76,12 +76,12 @@ specializations) to its content.
 ### Events
 In order to support multiple use cases of recording data; there are four
 different types of events available:
-  * **Point**, to record data that is sampled from a single point in time during
-    activity.
+  * **Point**, to record data that is sampled from a single point in time
+    during activity.
   * **Split**, to record data that summarizes a part of a workout, e.g. a lap
     within a running session or any other interval within a workout.
-  * **Workout**, to record data that summarizes an entire workout, e.g. a running
-    session.
+  * **Workout**, to record data that summarizes an entire workout, e.g. a
+    running session.
   * **Aggregated**, to record data that is aggregated from multiple workouts or
     during a longer period, e.g. a day or a week.
 
@@ -108,13 +108,13 @@ The general archetype currently has the elements listed in below sections.
   event:
 
   * **Activity name** (coded text / free text)
-    
+
     Specify what type of activity has taken place, e.g. running or walking. The
     current archetype has coded these internally but this will hopefully be
     coded externally with SNOMED CT or similar.
 
   * **Level of exertion** (slot for `openEHR-EHR-CLUSTER.level_of_exertion.v1`)
-    
+
     Specify the exertion from the individual during the activity.
 
   * **Physical activity level** (quantity)
@@ -141,20 +141,20 @@ The general archetype currently has the elements listed in below sections.
   event:
 
   * **Environment** (slot)
-  
+
     Specify environmental data during activity with e.g. the "Environmental
     Conditions" cluster. Watches often measure temperature and humidity and
     these may be helpful in interpreting the data.
 
   * **Additional details** (slot)
-    
+
     Allow adding more details about the state at template level.
 
 ### Protocol
   The general archetype currently has the following protocol elements:
 
   * **Techniques** (coded text)
-  
+
     Specify how the data was obtained.
 
   * **Device** (cluster)
@@ -171,9 +171,9 @@ strength workout. There are also state data that is only relevant for certain
 activites. Information about terrain and road surface may help interpretating a
 cycling session but cannot be used for a swim in a pool.
 
-Specialization has thus been used in order to not have a large single archetype
-with data elements for every possible activity and not having to duplicate all
-the common elements for each activity.
+Specialization has therefore been used in order to not have a large single
+archetype with data elements for every possible activity and not having to
+duplicate all the common elements for each activity.
 
 A reason to use specialization instead of clusters for each activity is that
 with specialization it is possible to add both data and state elements that are
@@ -199,7 +199,7 @@ the composition.
 
 ### Swimming / cycling / walking / running
 Specializations of the main archetype has been created in order to allow
-recording sessions of swimming, cycling and running. 
+recording sessions of swimming, cycling and running.
 
 The swimming specialization adds elements for data about distance, speed,
 stroke count and style used. It also adds state elements about the swimming
