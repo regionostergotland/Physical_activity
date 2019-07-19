@@ -127,44 +127,44 @@ sections.
   The main archetype currently has the following data elements under each
   event:
 
-  * Activity name (coded text / free text)
+  * **Activity name** (coded text / free text)
     
     Specify what type of activity has taken place, e.g. running or walking. The
     current archetype has coded these internally but this will hopefully be
     coded externally with SNOMED CT or similar.
 
-  * Physical activity level (quantity)
+  * **Physical activity level** (quantity)
 
     Specify PAL, the total energy expenditure (per 24 h) divided by the basal
     metabolic rate.
 
-  * Metabolic equivalent of task (quantity)
+  * **Metabolic equivalent of task** (quantity)
     
     Specify MET, the ratio of the expenditure rate during the activity compared
     to the resting rate.
 
-  * Active / total energy expenditure (quantity)
+  * **Active / total energy expenditure** (quantity)
 
     Many watches record either active or total (basal+active) energy
     expenditure. Basal expenditure is not related to activity but if only total
     is available it can be used.
 
-  * Description (free text)
+  * **Description** (free text)
     
     Describe the performed activity.
 
-  * Comment (free text)
+  * **Comment** (free text)
 
     Provide further details about the activity at runtime.
 
-  * Activity details (slot)
+  * **Activity details** (slot)
 
     Provide activity specific details. Currently there is a "Distance activity"
     cluster with specializations that can be used as well as an "Exercise"
     cluster. Vendor specific data can also be recorded with the "Google Fit
     specific" and "Apple Health specific" clusters.
 
-  * Perceived exertion (slot)
+  * **Perceived exertion** (slot)
 
     Provide information about the perceived exertion of the individual.
     Currently there is only a single example of a cluster, Borg scale, which
@@ -174,41 +174,41 @@ sections.
   The main archetype currently has the following state elements under each
   event:
 
-  * Equipment (slot)
+  * **Equipment** (slot)
 
     Specify any equipment that has been used during the activity. Use the
     "Training equipment" cluster or a specialization of it.
 
-  * Environment (slot)
+  * **Environment** (slot)
 
     Specify environmental data during activity with e.g. the "Environmental
     Conditions" cluster. Watches often measure temperature and humidity and
     these may be helpful in interpreting the data.
 
-  * Venue/terrain (cluster)
+  * **Venue/terrain** (cluster)
 
-    * Description (free text)
+    * **Description** (free text)
 
     Describe the venue or terrain where the activity has taken place.
 
-    * Additional details (slot)
+    * **Additional details** (slot)
 
     Add additional details about the venue/terrain. No examples have been
     created as of yet, but it may be of interest to model terrain and road
     surface types.
 
-  * Additional details (slot)
+  * **Additional details** (slot)
     
     Allow adding more details about the state at template level.
 
 #### Protocol
   The main archetype currently has the following protocol elements:
 
-  * Techniques (coded text)
+  * **Techniques** (coded text)
   
     Specify how the data was obtained.
 
-  * Device (cluster)
+  * **Device** (cluster)
 
     Specify one or more devices that was used to record data. Use the "Medical
     device" cluster or a specialization.
@@ -227,13 +227,12 @@ exist for walking/running, swimming and cycling activities.
 The general cluster has been divided into two separate subclusters; "Details"
 and "Cumulative details". These subclusters are meant to be used mutually
 exclusive in events, meaning that only one of the clusters should be used
-inside a single event.
-
-The reason is that the cumulative subcluster only contains data that accumulate
-over time and may not be sampled from a single point. This cluster may only
-exist under a interval event with the math function total. The details event
-contains sampled data that can either represent a point in time or a interval
-of time with a math function such as average, min or max.
+inside a single event. The reason is that the cumulative subcluster only
+contains data that accumulate over time and may not be sampled from a single
+point. This cluster may only exist under a interval event with the math
+function total. The details event contains sampled data that can either
+represent a point in time or a interval of time with a math function such as
+average, min or max.
 
 The distance cluster contains more than only distance. Whenever a distance is
 traveled, there is a duration of it and a speed at every point within that

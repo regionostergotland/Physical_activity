@@ -107,32 +107,32 @@ The general archetype currently has the elements listed in below sections.
   The general archetype currently has the following data elements under each
   event:
 
-  * Activity name (coded text / free text)
+  * **Activity name** (coded text / free text)
     
     Specify what type of activity has taken place, e.g. running or walking. The
     current archetype has coded these internally but this will hopefully be
     coded externally with SNOMED CT or similar.
 
-  * Level of exertion (slot for `openEHR-EHR-CLUSTER.level_of_exertion.v1`)
+  * **Level of exertion** (slot for `openEHR-EHR-CLUSTER.level_of_exertion.v1`)
     
     Specify the exertion from the individual during the activity.
 
-  * Physical activity level (quantity)
+  * **Physical activity level** (quantity)
 
     Specify PAL, the total energy expenditure (per 24 h) divided by the basal
     metabolic rate.
 
-  * Active / total energy expenditure (quantity)
+  * **Active / total energy expenditure** (quantity)
 
     Many watches record either active or total (basal+active) energy
     expenditure. Basal expenditure is not related to activity but if only total
     is available it can be used.
 
-  * Comment (free text)
+  * **Comment** (free text)
 
     Provide further details about the activity at runtime.
 
-  * Additional details (slot)
+  * **Additional details** (slot)
 
     Allow providing further detail at template level.
 
@@ -140,24 +140,24 @@ The general archetype currently has the elements listed in below sections.
   The general archetype currently has the following state elements under each
   event:
 
-  * Environment (slot)
+  * **Environment** (slot)
   
     Specify environmental data during activity with e.g. the "Environmental
     Conditions" cluster. Watches often measure temperature and humidity and
     these may be helpful in interpreting the data.
 
-  * Additional details (slot)
+  * **Additional details** (slot)
     
     Allow adding more details about the state at template level.
 
 ### Protocol
   The general archetype currently has the following protocol elements:
 
-  * Techniques (coded text)
+  * **Techniques** (coded text)
   
     Specify how the data was obtained.
 
-  * Device (cluster)
+  * **Device** (cluster)
 
     Specify one or more devices that was used to record data. Use the "Medical
     device" cluster or a specialization.
