@@ -76,13 +76,13 @@ specializations) to its content.
 ### Events
 In order to support multiple use cases of recording data; there are four
 different types of events available:
-  * Point: to record data that is sampled from a single point in time during
+  * **Point**, to record data that is sampled from a single point in time during
     activity.
-  * Split, to record data that summarizes a part of a workout, e.g. a lap
+  * **Split**, to record data that summarizes a part of a workout, e.g. a lap
     within a running session or any other interval within a workout.
-  * Workout, to record data that summarizes an entire workout, e.g. a running
+  * **Workout**, to record data that summarizes an entire workout, e.g. a running
     session.
-  * Aggregate, to record data that is aggregated from multiple workouts or
+  * **Aggregated**, to record data that is aggregated from multiple workouts or
     during a longer period, e.g. a day or a week.
 
 #### Intervals vs points
