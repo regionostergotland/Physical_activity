@@ -27,17 +27,17 @@ archetypes that later may be scrapped.
   Cluster for recording data about distance based activities. Can be used on
   its own or be specialized.
 
-* `openEHR-EHR-CLUSTER.distance_activity-cycling.v0`
+  * `openEHR-EHR-CLUSTER.distance_activity-cycling.v0`
 
-  Specialization of distance activity for cycling.
+    Specialization of distance activity for cycling.
 
-* `openEHR-EHR-CLUSTER.distance_activity-swimming.v0`
+  * `openEHR-EHR-CLUSTER.distance_activity-swimming.v0`
 
-  Specialization of distance activity for swimming.
+    Specialization of distance activity for swimming.
 
-* `openEHR-EHR-CLUSTER.distance_activity-walking_running.v0`
+  * `openEHR-EHR-CLUSTER.distance_activity-walking_running.v0`
 
-  Specialization of distance activity for walking and running.
+    Specialization of distance activity for walking and running.
 
 * `openEHR-EHR-CLUSTER.exercise.v0`
 
