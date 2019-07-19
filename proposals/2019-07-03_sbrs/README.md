@@ -6,25 +6,32 @@ and some daily activity. Extending these to other types of activity may require
 altererations and additional archetypes.
 
 ## Overview of archetypes
+The archetypes listed in the below sections are all the archetypes that can be
+used when modeling physical activity.
 
 ### Experimental archetypes
-The archetypes produced and available in this repository follows:
+The archetypes produced and available are listed below. These are meant to test
+new ideas and are not proposals for fully complete archetypes. They may thus
+have lacking descriptions, improper element names, missing quantity units and
+other issues that has not been addressed in order to not waste time on
+archetypes that later may be scrapped.
+
 
 * `openEHR-EHR-OBSERVATION.physical_activity.v0`
 
   Main archetype, can be used on its own or specialized.
 
-* `openEHR-EHR-OBSERVATION.physical_activity-walking_running.v0`
+  * `openEHR-EHR-OBSERVATION.physical_activity-walking_running.v0`
 
-  Specialization of main archetype specific to walking or running activity.
+    Specialization of main archetype specific to walking or running activity.
 
-* `openEHR-EHR-OBSERVATION.physical_activity-cycling.v0`
+  * `openEHR-EHR-OBSERVATION.physical_activity-cycling.v0`
 
-  Specialization of main archetype specific to cycling activity.
+    Specialization of main archetype specific to cycling activity.
 
-* `openEHR-EHR-OBSERVATION.physical_activity-swimming.v0`
+  * `openEHR-EHR-OBSERVATION.physical_activity-swimming.v0`
 
-  Specialization of main archetype specific to swimming activity.
+    Specialization of main archetype specific to swimming activity.
 
 * `openEHR-EHR-CLUSTER.cumulative_elevation_change.v0`
 
@@ -32,7 +39,8 @@ The archetypes produced and available in this repository follows:
 
 ### Existing archetypes
 A list of archetypes that already exists in CKM and are used by the
-experimental archetypes follows:
+experimental are listed below. Some of theser are reviewed and published while
+some are not.
 
 * [`openEHR-EHR-COMPOSITION.self_monitoring.v0`][1]
 
@@ -61,8 +69,8 @@ experimental archetypes follows:
 [5]: https://ckm.openehr.org/ckm/archetypes/1013.1.297 "Level of exertion"
 
 ## General
-Physical activity can recorded by creating a template for a `self_monitoring`
-composition and adding one or more `physical_activity`-observations (or
+Physical activity can recorded by creating a template for a "Self monitoring"
+composition and adding one or more "Physical activity" observations (or
 specializations) to its content.
 
 ### Events
@@ -93,9 +101,12 @@ all elements can be placed under an event and then referenced to all events
 where they are appropriate.
 
 ### Elements
-The general archetype currently has the following elements:
+The general archetype currently has the elements listed in below sections.
 
 #### Data
+  The general archetype currently has the following data elements under each
+  event:
+
   * Activity name (coded text / free text)
     
     Specify what type of activity has taken place, e.g. running or walking. The
@@ -126,14 +137,30 @@ The general archetype currently has the following elements:
     Allow providing further detail at template level.
 
 #### State
-  * Environment (cluster)
+  The general archetype currently has the following state elements under each
+  event:
+
+  * Environment (slot)
   
-    Specify environmental data during activity. Watches often measure
-    temperature and humidity and these may be helpful in interpreting the data.
+    Specify environmental data during activity with e.g. the "Environmental
+    Conditions" cluster. Watches often measure temperature and humidity and
+    these may be helpful in interpreting the data.
 
   * Additional details (slot)
     
     Allow adding more details about the state at template level.
+
+### Protocol
+  The general archetype currently has the following protocol elements:
+
+  * Techniques (coded text)
+  
+    Specify how the data was obtained.
+
+  * Device (cluster)
+
+    Specify one or more devices that was used to record data. Use the "Medical
+    device" cluster or a specialization.
 
 ### Specialization
 As mentioned, there is a main archetype as well as multiple specializations.
@@ -208,7 +235,7 @@ For activities that require more data than provided by above archetypes a
 specialization can be created.
 
 ## Daily activity
-One of the main interests of this project is to be able to record every day
+One of the main interests of this project is to be able to record everyday
 activity that is not necessarily specific workouts. For this purpose, the
 "Aggregated" event shall be used.
 
