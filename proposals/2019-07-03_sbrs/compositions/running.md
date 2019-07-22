@@ -15,7 +15,9 @@ workout, we must use at least two overlapping "Workout" events.
 
 If we have more detailed information such as lap times or a time series of
 sampled data, we may use overlapping "Split" and "Point" events as well like in
-the below example.
+the below example. The below example tracks a single workout but has two
+"Workout" event and as well as "Split" event for each lap and a "Point" event
+for each sampled point within the workout.
 
 ```
 self_monitoring (composition):
@@ -23,8 +25,8 @@ self_monitoring (composition):
     data:
       any_event: time: "2019-07-04T12:49:26", width: PT1H50M52S, math_fn: average
         rate: 155
-          maximum: time: "2019-07-04T12:49:26", width: PT1H50M52S, math_fn: max
-            rate: 172
+      maximum: time: "2019-07-04T12:49:26", width: PT1H50M52S, math_fn: max
+        rate: 172
   walking_running:
     data:
       workout: time: "2019-07-04T12:49:26", width: PT1H50M52S, math_fn: total
