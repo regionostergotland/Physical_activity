@@ -40,6 +40,11 @@ self_monitoring (composition):
               step_count: 19030
               elevation_gain: 201 m
               elevation_drop: 202 m
+        equipment:
+          training_equipment:
+            descriptive_name: "Running shoes"
+            type: "Footwear, running shoes"
+            model: "Nike Free"
       workout: time: 2019-07-04T12:49:26, width: PT1H50M52S, math_fn: average
         activity_name: "Running"
         activity_details:
