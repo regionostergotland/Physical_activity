@@ -99,7 +99,7 @@ Pitta, F; Troosters, T; Probst, VS; et al. Quantifying  physical activity in dai
 		["original_namespace"] = <"org.openehr">
 		["original_publisher"] = <"openEHR Foundation">
 		["custodian_namespace"] = <"org.openehr">
-		["MD5-CAM-1.0.1"] = <"38fa1edb0fbc0871bfd1b294fa64bd6d">
+		["MD5-CAM-1.0.1"] = <"2acaf51bc176685bf2d9e2f0b0a7f02d">
 		["build_uid"] = <"eed4f9db-ff38-4cd0-a3cd-06dd9f3c893b">
 		["revision"] = <"0.0.1-alpha">
 	>
@@ -256,7 +256,7 @@ definition
 							use_node ITEM_TREE /data[at0001]/events[at0002]/state[at0027]
 						}
 					}
-					INTERVAL_EVENT[at0115] occurrences matches {0..1} matches {    -- Aggregated
+					INTERVAL_EVENT[at0115] occurrences matches {0..*} matches {    -- Aggregated
 						data matches {
 							use_node ITEM_TREE /data[at0001]/events[at0002]/data[at0003]
 						}
