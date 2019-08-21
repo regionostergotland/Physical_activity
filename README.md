@@ -6,7 +6,7 @@
 A project in collaboration between [Region Östergötland][1] and a student group
 at [Linköping university][2].
 
-[Student project report][1] (in Swedish) with first prototype source code
+[Student project report][3] (in Swedish) with first prototype source code
 available at https://github.com/alexvestin/wwv.
 
 The application pulls data from Google Fitness (that is available on both
@@ -23,14 +23,15 @@ license) too, at https://github.com/regionostergotland/wwv/.
 The repository currently contains the directories listed below.
 
 ### existing
-Directory containing archetypes that already exist in the CKM repository and
+Directory containing copies of archetypes that already exist in the [openEHR CKM](https://ckm.openehr.org/ckm/) repository and
 are of interest to this project and may be used in templates or cluster slots
 for modeling physical activity.
 
 ### proposals
 Directory containing experimental archetypes created for the purpose of
-modeling self recorded physical activity. Each batch of archetypes is stored in
-its own directory with documentation and example templates.
+modeling self recorded physical activity. Two different modeling approaches
+are explored. Each batch of archetypes is stored in
+its own subdirectory with documentation and example templates.
 
 ### mindmaps
 A directory to store versioned mindmaps used for requirements gathering etc.
