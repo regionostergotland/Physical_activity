@@ -71,7 +71,7 @@ Discussions were initially in openEHR's Slack forum for modeling, then it was
 suggested that discussions move to [this project's GitHub issues][4] (as a test 
 of an alternative platform) but discussions never took off after [the initial posting][5].
 Now (september 2020) we'll try to restart discussions in openEHR's discussion forum at 
-https://discourse.openehr.org/c/clinical/5
+https://discourse.openehr.org/t/physical-activity-archetypes-exercise-steps-etc-from-apps-devices/983
 
 [4]: https://github.com/regionostergotland/Physical_activity/issues
 [5]: https://github.com/regionostergotland/Physical_activity/issues/1
