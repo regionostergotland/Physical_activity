@@ -10,10 +10,18 @@ at [Linköping university][2].
 available at https://github.com/alexvestin/wwv.
 
 The application pulls data from Google Fitness (that is available on both
-Android and iOS) and imports it to an openEHR platform. Currently the source
-code and openEHR models are updated as a summer project at Region Östergötland.
-The updated version will be periodically released as free software (MIT
-license) too, at https://github.com/regionostergotland/wwv/.
+Android and iOS) and imports it to an openEHR platform. 
+
+During the summer 2019 the source
+code and openEHR models related to physical exercise 
+were updated as a summer project (this project repository)
+at Region Östergötland. The updated version of the software 
+was released as free software (MIT license),
+at https://github.com/regionostergotland/wwv/.
+
+During the spring of 2020 another student group added and
+modified functionality, see
+https://github.com/regionostergotland/ipforregionen
 
 [1]: https://www.regionostergotland.se/
 [2]: https://liu.se/ 
@@ -56,4 +64,14 @@ descriptions etc.
 
 Archetypes and templates can be cloned or downloaded from this repository and
 manually loaded in to any designer application. They can also be accessed from
-the web based ADL designer at https://ehrscape.marand.si/designerv2.
+the web based Archetype Designer at https://tools.openehr.org/designer/#/.
+
+## Discussion of archetypes/templates
+Discussions were initially in openEHR's Slack forum for modeling, then it was
+suggested that discussions move to [this project's GitHub issues][4] (as a test 
+of an alternative platform) but discussions never took off after [the initial posting][5].
+Now (september 2020) we'll try to restart discussions in openEHR's discussion forum at 
+https://discourse.openehr.org/c/clinical/5
+
+[4]: https://github.com/regionostergotland/Physical_activity/issues
+[5]: https://github.com/regionostergotland/Physical_activity/issues/1
